@@ -35,6 +35,9 @@ public class Teleop extends LinearOpMode {
         DcMotor rightElevator = hardwareMap.dcMotor.get("rightElevator");
         DcMotor leftElevator = hardwareMap.dcMotor.get("leftElevator");
         DcMotor intake = hardwareMap.dcMotor.get("intake");
+        Servo intakeServo = hardwareMap.servo.get("intakeServo");
+        Servo akdadad;
+
         BNO055IMU imu = new BNO055IMU() {
             @Override
             public boolean initialize(@NonNull Parameters parameters) {
@@ -197,7 +200,7 @@ public class Teleop extends LinearOpMode {
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightElevator.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        intakeServo.setDirection(Servo.Direction.REVERSE);
         waitForStart();
 
         if (isStopRequested()) return;
@@ -211,13 +214,14 @@ public class Teleop extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
             double ry = gamepad1.right_stick_y;
             double i = gamepad1.right_trigger;
+            double si = gamepad2.right_stick_y;
             //double ia gamepad1.right_bumper;
 
 
-            double botHeading = -imu.getAngularOrientation().firstAngle /*- Math.PI*/;
-
-            double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
-            double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
+//            double botHeading = -imu.getAngularOrientation().firstAngle /*- Math.PI*/;
+//
+//            double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+//            double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
@@ -230,7 +234,25 @@ public class Teleop extends LinearOpMode {
             double rightElevatorPower =ry;
             double leftElevatorPower=ry;
             double intakePower=i;
+//            intakeServo.scaleRange(0.6,0.8);
+            si=0;
+            double servoAngle=si;
 
+            intakeServo.setPosition(servoAngle);
+
+//            intakeServo.setPosition(0);
+//            if(gamepad1.left_trigger !=0){
+//                servoAngle+=0.05;
+//                intakeServo.setPosition(servoAngle);
+//
+//            }
+//            if(intakeServo.getPosition()!=0.75)
+//            {
+//                intakeServo.setPosition(0);
+//            }
+//            else{
+//                intakeServo.setPosition(0.75);
+//            }
             if (gamepad1.circle){
                 BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
                 parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
@@ -253,6 +275,9 @@ public class Teleop extends LinearOpMode {
                 leftElevator.setPower(leftElevatorPower);
             }
 
+
+            telemetry.addLine("Servo Angle is: " + intakeServo.getPosition());
+            telemetry.update();
         }
     }
 }
