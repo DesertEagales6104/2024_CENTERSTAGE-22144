@@ -114,27 +114,29 @@ public class Teleop extends LinearOpMode {
             }
 
 
-            if(gamepad1.dpad_up) {leftElevatorServo.setPosition(1); rightElevatorServo.setPosition(1);}
+            if(gamepad1.dpad_up) {leftElevatorServo.setPosition(0); rightElevatorServo.setPosition(0);}
 
-            if(gamepad1.dpad_down) {leftElevatorServo.setPosition(0); rightElevatorServo.setPosition(0);}
+            if(gamepad1.touchpad) {imu.resetYaw();}
+
+            if(gamepad1.dpad_down) {leftElevatorServo.setPosition(0.45); rightElevatorServo.setPosition(0.45);}
 
             if(Math.abs(ry) < 0.05) {
                 rightElevator.setPower(0);
                 leftElevator.setPower(0);
-            } else if(Math.abs(ry) < 0.5) {
+            } else if(Math.abs(ry) < 1) {
                 if(!gamepad1.dpad_up && !gamepad1.dpad_down) {
-                    rightElevatorServo.setPosition(0.3);
-                    leftElevatorServo.setPosition(0.3);
+                    rightElevatorServo.setPosition(0.55);
+                    leftElevatorServo.setPosition(0.55);
                 }
                 rightElevator.setPower(ry);
                 leftElevator.setPower(ry);
             } else {
                 if(!gamepad1.dpad_up && !gamepad1.dpad_down) {
-                    rightElevatorServo.setPosition(0.3);
-                    leftElevatorServo.setPosition(0.3);
+                    rightElevatorServo.setPosition(0.55);
+                    leftElevatorServo.setPosition(0.55);
                 }
-                rightElevator.setPower(Math.copySign(0.5,ry));
-                leftElevator.setPower(Math.copySign(0.5,ry));
+                rightElevator.setPower(Math.copySign(1,ry));
+                leftElevator.setPower(Math.copySign(1,ry));
             }
 
 
