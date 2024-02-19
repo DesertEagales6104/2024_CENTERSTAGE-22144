@@ -44,7 +44,7 @@ public class Teleop extends LinearOpMode {
         Servo rightElevatorServo = hardwareMap.servo.get("rightElevatorServo");
         Servo leftElevatorServo = hardwareMap.servo.get("leftElevatorServo");
         YawPitchRollAngles robotOrientation;
-
+        
 
 
         // Servo intakeAngle = hardwareMap.Servo.get("intakeAngle");
@@ -83,7 +83,6 @@ public class Teleop extends LinearOpMode {
             double ry = gamepad1.right_stick_y;
             double i = gamepad1.right_trigger;
             robotOrientation = imu.getRobotYawPitchRollAngles();
-
 
             double botHeading = -robotOrientation.getYaw(AngleUnit.RADIANS);
             double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
