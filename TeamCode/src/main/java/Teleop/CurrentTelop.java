@@ -1,4 +1,4 @@
-
+package Teleop;
 
 import androidx.annotation.NonNull;
 
@@ -26,7 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @TeleOp
-public class Teleop extends LinearOpMode {
+public class CurrentTelop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors
