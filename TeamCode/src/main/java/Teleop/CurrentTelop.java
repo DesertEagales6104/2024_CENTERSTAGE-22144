@@ -104,7 +104,7 @@ public class CurrentTelop extends LinearOpMode {
             backRightMotor.setPower(backRightPower);
 
             if(gamepad1.a && intakeServo.getPosition()==1) {
-                intakeServo.setPosition(0.645);
+                intakeServo.setPosition(0.475);
                 intake.setPower(1);
             }
             else if(gamepad1.x&&intakeServo.getPosition()!= 1) {
